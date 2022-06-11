@@ -69,8 +69,9 @@ def create_access_token(username: str, user_id: int, expires_delta: Optional[tim
 async def get_current_user(token: str = Depends(oauth2_bearer)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get["sub"]
-        user_id: int = payload.get["id"]
+        print(payload)
+        username: str = payload.get("sub")
+        user_id: int = payload.get("id")
         if username is None or user_id is None:
             raise get_user_exception()
         return {"username": username, "user_id": user_id}
